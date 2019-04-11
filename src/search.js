@@ -37,7 +37,7 @@ class Search {
             this.prices = data;
             let simulations = []
             let i = 0;
-            while (simulations.length <=100) {
+            while (simulations.length <= 50) {
                 simulations.push({idx: i, data: this.calculateSim(this.prices)});
                 i++;
             }
