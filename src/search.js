@@ -1,3 +1,6 @@
+// let Line = require('./line.js');
+let LineChart = require('./line_chart');
+
 class Search {
 
     constructor({ input, ul }) {
@@ -20,6 +23,7 @@ class Search {
             url: 'https://api.iextrading.com/1.0/ref-data/symbols'
         }).then(data => {
             this.companies = data;
+            
         })
     }
 
@@ -28,8 +32,16 @@ class Search {
             method: 'GET',
             url: `https://api.iextrading.com/1.0/stock/${ticker}/chart/1y`
         }).then(data => {
+            this.ul.innerHTML = ''
+            this.input.value = ''
             this.prices = data;
-            console.log(this.prices)
+            let simulations = []
+            let i = 0;
+            while (simulations.length <=100) {
+                simulations.push({idx: i, data: this.calculateSim(this.prices)});
+                i++;
+            }
+            new LineChart (simulations);
         })
     }
 
@@ -62,6 +74,58 @@ class Search {
         if (ticker) {
             this.getStockData(ticker);
         }
+    }
+
+    calculateSim (data) {
+        let filterData = data.filter(datum => {
+            if (datum.close !== undefined) return datum
+        })
+        let average = this.calculateAvg(filterData);
+        let stdDev = this.calculateStdDev(filterData, average);
+        let variance = Math.pow(stdDev, 2);
+        let recentPrice = filterData[filterData.length - 1].close;
+        let sim = [{date: 0, price: recentPrice}];
+        for (let i = 0; i < filterData.length; i++) {
+            let dailyDrift = average - (variance / 2);
+            let drift = (dailyDrift - (Math.pow(stdDev, 2) / 2));
+            let shock = drift + stdDev * this.calculateNoise(-3, 3);
+            let nextPrice = sim[i].price * Math.pow(Math.E, shock);
+            sim.push({date: i, price: nextPrice});
+        }
+        return sim;
+    }
+
+    calculateAvg (data) {
+        let percent = 0;
+        for (let i = 0; i < data.length - 1; i++) {
+            let change = (data[i + 1].close - data[i].close) / data[i].close ;
+            percent += change;
+        }
+        return percent / (data.length - 1)
+    }
+
+    calculateStdDev (data, average) {
+        let sum = 0;
+        for (let i = 0; i < data.length - 1; i++) {
+            let change = (data[i + 1].close - data[i].close) / data[i].close;
+            let stdDev = Math.pow(change - average, 2);
+
+            sum += stdDev;
+        }
+        return Math.pow((sum / (data.length - 1)), 0.5);
+    }
+
+    calculateNoise (min, max,) {
+        var u = 0, v = 0;
+        while (u === 0) u = Math.random(); //Converting [0,1) to (0,1)
+        while (v === 0) v = Math.random();
+        let num = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+
+        num = num / 10.0 + 0.5; // Translate to 0 -> 1
+        if (num > 1 || num < 0) num = this.calculateNoise(min, max); // resample between 0 and 1 if out of range
+        num *= max - min; // Stretch to fill range
+        num += min; // offset to min
+        return num;
     }
 }
 
