@@ -12,6 +12,21 @@
 </head>
 
 <body>
+    <style>
+        body {
+            background-image: linear-gradient(to bottom, white, gray);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            height: 100%
+        }
+        .charts {
+            display: flex;
+            flex-direction: row;
+        }
+        .charts .linechart .barchart{
+            min-width: 600px;
+        }
+    </style>
     <h1 id='header'>
        Monte Carlo Stock Simulator via Brownian Motion
     </h1>
@@ -22,6 +37,9 @@
             <ul class='search-ul'></ul>
         </form>
     </div>
-    <svg class='linechart'></svg>
+    <div class='charts'>
+        <svg class='linechart'></svg>
+        <svg class='barchart'></svg>
+    </div>
 </body>
 </html>

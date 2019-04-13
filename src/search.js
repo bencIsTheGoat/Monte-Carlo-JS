@@ -1,5 +1,6 @@
 // let Line = require('./line.js');
 let LineChart = require('./line_chart');
+let BarChart = require('./bar_chart.js')
 
 class Search {
 
@@ -13,6 +14,7 @@ class Search {
         });
         this.ul.addEventListener('click', (e) => {
             e.preventDefault();
+            
             this.fetchStockData(e);
         });
     }
@@ -35,13 +37,28 @@ class Search {
             this.ul.innerHTML = ''
             this.input.value = ''
             this.prices = data;
-            let simulations = []
+            let simulations = [];
+            let endPrices = [];
             let i = 0;
-            while (simulations.length <= 50) {
-                simulations.push({idx: i, data: this.calculateSim(this.prices)});
+            while (simulations.length <= 150) {
+                let sim = this.calculateSim(this.prices)
+                simulations.push({idx: i, data: sim});
+                endPrices.push(sim[sim.length - 1].price)
                 i++;
             }
             new LineChart (simulations);
+            new BarChart (endPrices);
+
+            this.input.addEventListener('input', (e) => {
+                e.preventDefault();
+                if (e.currentTarget.value !== '') {
+
+                    d3.selectAll('svg').remove()
+                }
+            });
+
+                
+            
         })
     }
 
@@ -116,16 +133,21 @@ class Search {
     }
 
     calculateNoise (min, max,) {
-        var u = 0, v = 0;
-        while (u === 0) u = Math.random(); //Converting [0,1) to (0,1)
-        while (v === 0) v = Math.random();
-        let num = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+        let randX = 0;
+        let randY = 0;
+        while (randX === 0) {
+            randX = Math.random();
+        }
+        while (randY === 0) {
+            randY = Math.random();
+        } 
+        let stdDevs = Math.sqrt(-2.0 * Math.log(randX)) * Math.cos(2.0 * Math.PI * randY);
 
-        num = num / 10.0 + 0.5; // Translate to 0 -> 1
-        if (num > 1 || num < 0) num = this.calculateNoise(min, max); // resample between 0 and 1 if out of range
-        num *= max - min; // Stretch to fill range
-        num += min; // offset to min
-        return num;
+        stdDevs = stdDevs   / 10.0 + 0.5;
+        if (stdDevs > 1 || stdDevs  < 0) stdDevs = this.calculateNoise(min, max);
+        stdDevs *= max - min;
+        stdDevs += min;
+        return stdDevs ;
     }
 }
 

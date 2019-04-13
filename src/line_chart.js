@@ -2,12 +2,11 @@ class LineChart {
 
     constructor (data) {
         this.data = Object.values(data).map(ele => ele.data)
-        // this.data = data
-        this.margin = {top: 50, right: 150, bottom: 80, left: 50};
-        this.width = 900 - this.margin.left - this.margin.right;
+        this.margin = {top: 50, right: 50, bottom: 50, left: 50};
+        this.width = 700 - this.margin.left - this.margin.right;
         this.height = 500 - this.margin.top - this.margin.bottom;
         
-        this.svg = d3.select("svg")
+        this.svg = d3.select(".linechart")
         .attr("width", this.width + this.margin.left + this.margin.right)
         .attr('height', this.height + this.margin.top + this.margin.bottom)
         .append('g')
@@ -19,7 +18,7 @@ class LineChart {
 
         this.y = d3.scaleLinear()
         .range([this.height, 0])
-            .domain([d3.min(this.data, sim => d3.min(sim, data => data.price)), d3.max(this.data, sim => d3.max(sim, data => data.price))]);
+        .domain([d3.min(this.data, sim => d3.min(sim, data => data.price)), d3.max(this.data, sim => d3.max(sim, data => data.price))]);
 
         this.svg.append('g')
             .attr('id', 'x-axis')
@@ -46,7 +45,7 @@ class LineChart {
             .append("path")
             .attr("class", 'line')
             .style('fill', 'none')
-            .style('stroke-width', '4')
+            .style('stroke-width', '3')
             .style('stoke-linecap', 'round')
             .style('stroke', () => this.randomColor())
             .attr('d', d => {
@@ -68,15 +67,15 @@ class LineChart {
         d3.selectAll('.line')
             .style('opacity', '1')
 
-        let totalLength = d3.selectAll('.line').node().getTotalLength() * 1.3;
+        let totalLength = d3.selectAll('.line').node().getTotalLength() * 1.5;
 
         d3.selectAll('.line')
             .attr('stroke-dasharray', totalLength + " " + totalLength)
             .attr('stroke-dashoffset', totalLength)
             .transition()
-            .delay((d, i) => 500 * i)
-            .ease(d3.easeLinear)
-            .duration(5000)
+            .delay((d, i) => 30 * i)
+            .ease(d3.easeExp)
+            .duration(10000)
             .attr('stroke-dashoffset', 0);
     }
 
