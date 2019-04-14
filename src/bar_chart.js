@@ -1,8 +1,8 @@
 class BarChart {
 
-    constructor(data, range) {
+    constructor(data, average) {
         this.data = data;
-        this.margin = { top: 50, right: 50, bottom: 50, left: 50 };
+        this.margin = { top: 50, right: 150, bottom: 50, left: 50 };
         this.width = 700 - this.margin.left - this.margin.right;
         this.height = 500 - this.margin.top - this.margin.bottom;
 
@@ -21,6 +21,8 @@ class BarChart {
         .thresholds(this.x.ticks(20))(this.data)
 
 
+        this.yMax = d3.max(this.hist, d => d.length)
+
         this.y = d3.scaleLinear()
         .range([this.height, 0])
         .domain([0, d3.max(this.hist, d => d.length)])
@@ -32,7 +34,11 @@ class BarChart {
         this.svg.append('g')
         .attr('id', 'x-axis')
         .attr("transform", `translate(0, ${this.height})`)
-        .call(d3.axisBottom(this.x));
+        .call(d3.axisBottom(this.x))
+
+        this.line = d3.line()
+            .x(average)
+            .y([0, this.yMax])
 
         this.bar = this.svg.selectAll('bar')
         .data(this.hist)
@@ -56,58 +62,67 @@ class BarChart {
         // .attr('width', d => this.x(d.x1) - this.x(d.x0) - 1)
         .attr('height', d => this.height - this.y(d.length))
 
+        this.line = d3.line()
+            .x(this.x(average))
+            .y([0, this.yMax])
 
+        this.svg
+        .append('g')
+        .selectAll('line')
+        .data([{y1: 0, y2: this.height, x1: this.x(average), x2: this.x(average)}])
+        .enter()
+        .append('line')
+        .attr('class', 'avgLine')
+        .attr('y1', this.height)
+        .attr('y2', d => d.y2)
+        .attr('x1', d => d.x1)
+        .attr('x2', d => d.x2)
+        .attr('stroke', 'orange')
+        .attr('fill', 'none')
+        .attr('stroke-width', '0')
+        .transition()
+        .duration(8000)
+        .attr('y1', d => d.y1)
+        .attr('stroke-width', '6')
+
+        let currency = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        })
+
+        this.svg
+        .append('text')
+        .attr('stroke', 'none')
+        .attr('y', this.height)
+        .transition()
+        .duration(8000)
+        .delay((d, i) => i * 8000)
+        .attr('opacity', '1')
+        .attr('fill', 'orange')
+        .attr('x', this.x(average)-70)
+        .attr('y', -5)
+        .text(`Projected Price ${currency.format(average)}`)
+        
         this.svg.append('g')
         .attr('class', 'xaxis')
         .attr('transform', `translate(0, ${this.height})`)
+
+        this.svg.append('text')
+        .text('Price ($)')
+        .attr('y', this.height + 30)
+        .attr('x', this.width / 2)
         
+        this.svg.append('text')
+            .text('Distribution of Projected Prices')
+            .style('font-weight', '900')
+            .attr('font-size', '22px')
+            .attr('y', -20)
+            .attr('x', this.width / 2 - 130)
+
     }
-    
-    // refreshBar(data) {
-    //     debugger;
 
-    //     let x = d3.scaleLinear()
-    //     .range([0, this.width])
-    //     .domain([20 + d3.min(data, d => d), d3.max(data, d => d) + 20]);
-
-    //     let hist = d3.histogram()
-    //     .domain(this.x.domain())
-    //     .thresholds(this.x.ticks(20))(data)
-
-    //     let y = d3.scaleLinear()
-    //     .range([this.height, 0])
-    //     .domain([0, d3.max(hist, d => d.length)])
-
-
-    //     let colorScale = d3.scaleLinear()
-    //     .domain([0, d3.max(hist, data => data.length)])
-    //     .range([d3.rgb('lightgreen').brighter(), d3.rgb('lightgreen').darker()])
-
-    //     let bar = this.svg.selectAll('bar')
-    //     .data(hist, d => d)
-
-    //     // bar
-    //     // .attr('transform', d => `translate(${x(d.x0)}, ${y(d.length)})`)
-
-    //     bar.exit().remove()
-
-    //     bar
-    //     .enter()
-    //     .append('rect')
-    //     .attr('class', 'bar')
-    //     .attr('height', this.height - y(0))
-    //     // .attr('width', d => x(d.x1) - x(d.x0) - 1)
-    //     .attr('fill', d => colorScale(d.length))
-
-    //     bar
-    //     .attr('x', d => d)
-    //     .attr('fill', d => colorScale(d.length))
-    //     .attr('height', d => this.height - y(d.length))
-    //     .attr('width', 20)
-
-
-
-    // }
 }
 
 module.exports = BarChart

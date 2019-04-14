@@ -8,6 +8,12 @@
     <script type='application/javascript' src='main.js'></script>
     <script src='https://d3js.org/d3.v4.min.js'></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Hind|Teko" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+        crossorigin="anonymous">
+<script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ"
+    crossorigin="anonymous"></script>
+
 
 </head>
 
@@ -17,25 +23,124 @@
             background-image: linear-gradient(to bottom, white, gray);
             background-repeat: no-repeat;
             background-attachment: fixed;
-            height: 100%
+            height: 100%;
+            font-family: 'Hind', sans-serif;
         }
         .charts {
             display: flex;
             flex-direction: row;
         }
-        .charts .linechart .barchart{
+        .charts svg{
             min-width: 600px;
+        }
+        input {
+            width: 280px;;
+            height: 40px;
+            border-radius: 5px;
+            border-style: solid;
+            border-width: 1px;
+            border-color: lightgray;
+            padding-left: 10px;
+            font-size: 15px;
+        }
+        ul {
+            position: absolute;
+            overflow-y: scroll;
+            height: 200px;
+            width: 500px;
+            list-style: none;
+            border-radius: 5px;
+            top: 315px;
+            left: 640px;
+        }
+        li:nth-child(even) {
+            background: white;
+            padding: 5px;
+        }
+        li:nth-child(odd) {
+            background: #21ce99;
+            padding: 5px;
+        }
+        li:hover {
+            cursor: pointer;
+            background: lightgray;
+        }
+        p {
+            min-width: 590px;
+            max-width: 590px;
+            padding: 20px;
+        }
+        h1{
+            font-weight: 900;
+            font-size: 40px;
+            padding: 20px;
+        }
+        h2 {
+           font-weight: 900;
+            font-size: 20px;
+            padding: 20px; 
+        }
+        h2 a {
+            text-decoration: none;
+            color:#21ce99
+        }
+        .search {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 20px;
+        }
+        .input {
+            position: relative;
+            left: 20px;
+            width: 500px;
+        }
+        button {
+            padding: 0 24px;
+            background-color: #21ce99;
+            border: 0;
+            color: white;
+            border-radius: 5px;
+            font-weight: 600;
+            height: 40px;
+            font-size: 15px;
+            width: 100px;;
+            margin-bottom: 30px;
+            margin-top: 20px;
+        }
+        button:hover {
+            cursor: pointer;
+            background-color:#3af5bd;
+        }
+        .info {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;;
         }
     </style>
     <h1 id='header'>
-       Monte Carlo Stock Simulator via Brownian Motion
+       Future Stock Price Simulator
     </h1>
-    <div class='search'>
-        <form class='search-form'>
-            <label>Search Stock</label>
-            <input type="text" placeholder="Apple" class='search-input'>
-            <ul class='search-ul'></ul>
-        </form>
+    <i className="fas fa-feather-alt"></i>
+    <h2>
+        A product of
+        <i className="fas fa-feather-alt"></i>
+        <a href="https://robenhood.herokuapp.com/#/">robenhood</a>
+    </h2>
+    <div class='info'>
+        <p>
+            Please search and select a publicly traded company to run an automated 
+            Monte Carlo Simulation using Geometric Brownian Motion that projects 
+            stock price distribution.
+        </p>
+        <div class='search'>
+            <div class='input'>
+                <input type="text" placeholder="Search Company" class='search-input'>
+                <button class='reset-button'>Reset</button>
+            </div>
+             <ul class='search-ul'></ul>
+        </div>
+
     </div>
     <div class='charts'>
         <svg class='linechart'></svg>

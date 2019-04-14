@@ -4,19 +4,23 @@ let BarChart = require('./bar_chart.js')
 
 class Search {
 
-    constructor({ input, ul }) {
+    constructor({ input, ul, button }) {
         this.fetchCompanies();
         this.input = input;
         this.ul = ul;
+        this.button = button;
         this.input.addEventListener('input', (e) => {
             e.preventDefault();
             this.displayMatches(e.currentTarget.value);
         });
         this.ul.addEventListener('click', (e) => {
             e.preventDefault();
-            
             this.fetchStockData(e);
         });
+        this.button.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.reload()
+        })
     }
 
     fetchCompanies () {
@@ -46,13 +50,14 @@ class Search {
                 endPrices.push(sim[sim.length - 1].price)
                 i++;
             }
-            new LineChart (simulations);
-            new BarChart (endPrices);
+            let avgEndPrice = this.avgEndPrice(endPrices)
+            let avgLine = this.avgLine(this.prices, avgEndPrice)
+            new LineChart(simulations, avgLine, avgEndPrice);
+            new BarChart (endPrices, avgEndPrice);
 
             this.input.addEventListener('input', (e) => {
                 e.preventDefault();
                 if (e.currentTarget.value !== '') {
-
                     d3.selectAll('svg').remove()
                 }
             });
@@ -60,6 +65,27 @@ class Search {
                 
             
         })
+    }
+
+    avgLine (data, avgEndPrice) {
+        let filterData = data.filter(datum => {
+            if (datum.close !== undefined) return datum;
+        })
+        let startPrice = filterData[filterData.length - 1].close;
+        let slope = (avgEndPrice - startPrice) / filterData.length;
+        let line = []
+        for (let i = 0; i < filterData.length; i++) {
+            line.push({date: i, price: startPrice += slope})
+        }
+        return line;
+    }
+
+    avgEndPrice (prices) {
+        let sum = 0;
+        for (let i = 0; i < prices.length; i++) {
+            sum += prices[i];
+        }
+        return sum / prices.length
     }
 
     getMatches (input) {
@@ -107,7 +133,7 @@ class Search {
             let drift = (dailyDrift - (Math.pow(stdDev, 2) / 2));
             let shock = drift + stdDev * this.calculateNoise(-3, 3);
             let nextPrice = sim[i].price * Math.pow(Math.E, shock);
-            sim.push({date: i, price: nextPrice});
+            sim.push({date: i + 1, price: nextPrice});
         }
         return sim;
     }

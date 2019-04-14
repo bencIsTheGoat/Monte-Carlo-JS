@@ -1,8 +1,9 @@
 class LineChart {
 
-    constructor (data) {
+    constructor (data, averageLine, avgEndPrice) {
         this.data = Object.values(data).map(ele => ele.data)
-        this.margin = {top: 50, right: 50, bottom: 50, left: 50};
+        // this.averageLine = Object.values(averageLine).map(ele => ele.data)
+        this.margin = {top: 50, right: 175, bottom: 50, left: 70};
         this.width = 700 - this.margin.left - this.margin.right;
         this.height = 500 - this.margin.top - this.margin.bottom;
         
@@ -41,6 +42,7 @@ class LineChart {
             .append('g')
             .attr('class', '.lines')
 
+            
         this.lines
             .append("path")
             .attr("class", 'line')
@@ -49,11 +51,57 @@ class LineChart {
             .style('stoke-linecap', 'round')
             .style('stroke', () => this.randomColor())
             .attr('d', d => {
+                this.line(d)
                 return this.line(d)
             })
 
-        d3.selectAll('.line')
-            .style('opacity', '0')
+        this.lines
+            .append('path')
+            .attr('class', 'line')
+            .style('fill', 'none')
+            .style('stroke-width', '6')
+            .style('stoke-linecap', 'round')
+            .style('stroke', 'orange')
+            .attr('d', () => {
+                this.line(averageLine)
+                return this.line(averageLine)
+            })
+            
+        this.svg.append('text')
+            .attr('class', 'projected')
+        .text('Projected')
+        .attr('fill', 'orange')
+        .attr('opacity', 0)
+        .attr('x', this.width)
+        .attr('y', this.y(avgEndPrice)-10)
+
+
+        this.svg.append('text')
+            .attr('class', 'projected')
+            .text('Path')
+            .attr('fill', 'orange')
+            .attr('opacity', '0')
+            .attr('x', this.width)
+            .attr('y', this.y(avgEndPrice)+10)
+
+        this.svg.append('text')
+            .text('Price ($)')
+            .attr('y', -30)
+            .attr('x', -(this.height / 2))
+            .attr('transform', 'rotate(-90)')
+
+        this.svg.append('text')
+            .text('Days from Today')
+            .attr('y', this.height + 30)
+            .attr('x', this.width / 2 - 50)
+
+        this.svg.append('text')
+            .text('Future Stock Price Simulations')
+            .style('font-weight', '900')
+            .attr('font-size', '22px')
+            .attr('y', -20)
+            .attr('x', this.width / 2 - 130)
+        
 
         this.animateLine();
 
@@ -66,17 +114,24 @@ class LineChart {
     animateLine () {
         d3.selectAll('.line')
             .style('opacity', '1')
+            .style('font-weight', '900')
 
-        let totalLength = d3.selectAll('.line').node().getTotalLength() * 1.5;
+        let totalLength = d3.selectAll('.line').node().getTotalLength() * 1.7;
 
         d3.selectAll('.line')
             .attr('stroke-dasharray', totalLength + " " + totalLength)
             .attr('stroke-dashoffset', totalLength)
             .transition()
-            .delay((d, i) => 30 * i)
+            .delay((d, i) => 40 * i)
             .ease(d3.easeExp)
             .duration(10000)
             .attr('stroke-dashoffset', 0);
+
+
+        d3.selectAll('.projected')
+        .transition()
+        .duration(7000)
+        .attr('opacity', '1')
     }
 
     randomColor () {
