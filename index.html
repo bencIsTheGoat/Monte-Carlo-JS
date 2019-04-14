@@ -13,6 +13,8 @@
         crossorigin="anonymous">
 <script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ"
     crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+    crossorigin="anonymous">
 
 
 </head>
@@ -82,7 +84,16 @@
         }
         h2 a {
             text-decoration: none;
+            color: black;
+        }
+        h2 path {
             color:#21ce99
+        }
+        h2 a:hover {
+            color: #21ce99;
+        }
+        h2 span {
+            color:black 
         }
         .search {
             display: flex;
@@ -117,15 +128,57 @@
             flex-direction: row;
             align-items: flex-start;;
         }
+        .header-div {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .links {
+            display: flex;
+            flex-direction: column;
+            font-size: 20px;
+            font-weight: 900;
+            padding-right: 20px;
+        }   
+        .links div {
+            display: flex;
+            flex-direction: row;
+            text-decoration: none;
+            justify-content: space-around;
+        }
+        .links a {
+            font-size: 35px;
+        }
+        .links #linkedin {
+            color: blue;
+        }
+        .links #github {
+            color: black;
+        }
     </style>
-    <h1 id='header'>
-       Future Stock Price Simulator
-    </h1>
-    <i className="fas fa-feather-alt"></i>
+    <div class='header-div'>
+        <h1 id='header'>
+           Future Stock Price Simulator
+        </h1>
+        <span class='links'>
+            Checkout my
+            <div>
+                <a href="https://www.linkedin.com/in/ben-cutler-783447b5/" id='linkedin'>
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/bcutler94" id='github'>
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+        </span>
+    </div>
     <h2>
-        A product of
-        <i className="fas fa-feather-alt"></i>
-        <a href="https://robenhood.herokuapp.com/#/">robenhood</a>
+        <span>
+            A product of
+        </span>
+            <i class="fas fa-feather-alt"></i>
+            <a href="https://robenhood.herokuapp.com/#/">robenhood</a>
     </h2>
     <div class='info'>
         <p>
