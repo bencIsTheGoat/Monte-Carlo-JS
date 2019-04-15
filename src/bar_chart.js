@@ -2,7 +2,7 @@ class BarChart {
 
     constructor(data, average) {
         this.data = data;
-        this.margin = { top: 50, right: 150, bottom: 50, left: 50 };
+        this.margin = { top: 50, right: 50, bottom: 50, left: 50 };
         this.width = 700 - this.margin.left - this.margin.right;
         this.height = 500 - this.margin.top - this.margin.bottom;
 
@@ -14,7 +14,7 @@ class BarChart {
 
         this.x = d3.scaleLinear()
         .range([0, this.width])
-        .domain([20 + d3.min(this.data, d => d), d3.max(this.data, d => d) + 20]);
+        .domain([d3.min(this.data, d => d) - 5, d3.max(this.data, d => d) + 5]);
         
         this.hist = d3.histogram()
         .domain(this.x.domain())
@@ -22,7 +22,6 @@ class BarChart {
 
 
         this.yMax = d3.max(this.hist, d => d.length)
-
         this.y = d3.scaleLinear()
         .range([this.height, 0])
         .domain([0, d3.max(this.hist, d => d.length)])
@@ -54,12 +53,12 @@ class BarChart {
         // .attr('opacity', 0)
         .transition()
         .duration(8000)
-        .delay((d, i) => i * 80)
+        .delay((d, i) => i * 80 + 6000)
         .ease(d3.easeBounce)
         .attr('fill', d => this.colorScale(d.length))
         .attr('opacity', 1)
         .attr('y', 0)
-        // .attr('width', d => this.x(d.x1) - this.x(d.x0) - 1)
+        .attr('width', d => this.x(d.x1) - this.x(d.x0) - 1)
         .attr('height', d => this.height - this.y(d.length))
 
         this.line = d3.line()
@@ -81,6 +80,7 @@ class BarChart {
         .attr('fill', 'none')
         .attr('stroke-width', '0')
         .transition()
+            .delay((d, i) => i * 8000 + 6000)
         .duration(8000)
         .attr('y1', d => d.y1)
         .attr('stroke-width', '6')
@@ -98,7 +98,7 @@ class BarChart {
         .attr('y', this.height)
         .transition()
         .duration(8000)
-        .delay((d, i) => i * 8000)
+        .delay((d, i) => i * 8000 + 6000)
         .attr('opacity', '1')
         .attr('fill', 'orange')
         .attr('x', this.x(average)-70)

@@ -3,7 +3,7 @@ class LineChart {
     constructor (data, averageLine, avgEndPrice) {
         this.data = Object.values(data).map(ele => ele.data)
         // this.averageLine = Object.values(averageLine).map(ele => ele.data)
-        this.margin = {top: 50, right: 175, bottom: 50, left: 70};
+        this.margin = {top: 50, right: 100, bottom: 50, left: 70};
         this.width = 700 - this.margin.left - this.margin.right;
         this.height = 500 - this.margin.top - this.margin.bottom;
         
