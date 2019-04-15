@@ -118,7 +118,7 @@ class BarChart {
             .text('Distribution of Projected Prices')
             .style('font-weight', '900')
             .attr('font-size', '22px')
-            .attr('y', -20)
+            .attr('y', -30)
             .attr('x', this.width / 2 - 130)
 
     }
