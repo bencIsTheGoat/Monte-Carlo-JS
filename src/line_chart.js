@@ -138,6 +138,10 @@ class LineChart {
         return `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`
     }
 
+    update () {
+        
+    }
+
 }
 
 module.exports = LineChart;

@@ -25,7 +25,7 @@ class Search {
         });
         this.button.addEventListener('click', (e) => {
             e.preventDefault();
-            window.location.reload()
+            window.location.reload();
         })
 
     }
