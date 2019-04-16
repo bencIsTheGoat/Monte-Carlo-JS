@@ -1,12 +1,14 @@
 class LineChart {
 
     constructor (data, averageLine, avgEndPrice) {
+
+        debugger;
         this.data = Object.values(data).map(ele => ele.data)
         // this.averageLine = Object.values(averageLine).map(ele => ele.data)
         this.margin = {top: 50, right: 100, bottom: 50, left: 70};
         this.width = 700 - this.margin.left - this.margin.right;
         this.height = 500 - this.margin.top - this.margin.bottom;
-        
+
         this.svg = d3.select(".linechart")
         .attr("width", this.width + this.margin.left + this.margin.right)
         .attr('height', this.height + this.margin.top + this.margin.bottom)
@@ -36,6 +38,7 @@ class LineChart {
             .x(data => this.x(data.date))
             .y(data => this.y(data.price))
 
+    
         this.lines = this.svg.selectAll('.lines')
             .data(this.data)
             .enter()
@@ -116,6 +119,7 @@ class LineChart {
             .style('opacity', '1')
             .style('font-weight', '900')
 
+        debugger;
         let totalLength = d3.selectAll('.line').node().getTotalLength() * 1.7;
 
         d3.selectAll('.line')
@@ -139,7 +143,7 @@ class LineChart {
     }
 
     update () {
-        
+
     }
 
 }
