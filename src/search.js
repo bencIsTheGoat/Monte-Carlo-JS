@@ -13,6 +13,12 @@ class Search {
             e.preventDefault();
             this.displayMatches(e.currentTarget.value);
         });
+        this.input.addEventListener('keyup', (e) => {
+            if (e.keyCode === 13 && this.ul.children.length === 1) {
+                e.preventDefault();
+                this.getStockData(this.ul.firstElementChild.dataset.ticker.toLowerCase());
+            }
+        })
         this.ul.addEventListener('click', (e) => {
             e.preventDefault();
             this.fetchStockData(e);
@@ -21,6 +27,7 @@ class Search {
             e.preventDefault();
             window.location.reload()
         })
+
     }
 
     fetchCompanies () {
