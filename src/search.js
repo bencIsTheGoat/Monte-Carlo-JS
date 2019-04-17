@@ -62,12 +62,12 @@ class Search {
             new LineChart(simulations, avgLine, avgEndPrice);
             new BarChart (endPrices, avgEndPrice);
 
-            this.input.addEventListener('input', (e) => {
-                e.preventDefault();
-                if (e.currentTarget.value !== '') {
-                    d3.selectAll('svg').remove()
-                }
-            });
+            // this.input.addEventListener('input', (e) => {
+            //     e.preventDefault();
+            //     if (e.currentTarget.value !== '') {
+            //         d3.selectAll('svg').remove()
+            //     }
+            // });
 
                 
             

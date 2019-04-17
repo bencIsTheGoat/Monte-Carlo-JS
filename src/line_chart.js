@@ -2,14 +2,17 @@ class LineChart {
 
     constructor (data, averageLine, avgEndPrice) {
 
-        debugger;
+     
         this.data = Object.values(data).map(ele => ele.data)
         // this.averageLine = Object.values(averageLine).map(ele => ele.data)
         this.margin = {top: 50, right: 100, bottom: 50, left: 70};
         this.width = 700 - this.margin.left - this.margin.right;
         this.height = 500 - this.margin.top - this.margin.bottom;
 
-        this.svg = d3.select(".linechart")
+        d3.selectAll('.linechart').remove();
+    
+        this.svg = d3.select(".charts").append('svg')
+        .attr('class', 'linechart')
         .attr("width", this.width + this.margin.left + this.margin.right)
         .attr('height', this.height + this.margin.top + this.margin.bottom)
         .append('g')
@@ -23,6 +26,7 @@ class LineChart {
         .range([this.height, 0])
         .domain([d3.min(this.data, sim => d3.min(sim, data => data.price)), d3.max(this.data, sim => d3.max(sim, data => data.price))]);
 
+
         this.svg.append('g')
             .attr('id', 'x-axis')
             .attr("transform", `translate(0, ${this.height})`)
@@ -31,7 +35,7 @@ class LineChart {
 
         this.svg.append("g")
             .attr('id', 'y-axis')
-            .attr('transform', `0, translate(${this.width})`)
+            .attr('transform', `translate(0, 0)`)
             .call(d3.axisLeft(this.y));
 
         this.line = d3.line()

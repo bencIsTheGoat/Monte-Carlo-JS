@@ -6,7 +6,10 @@ class BarChart {
         this.width = 700 - this.margin.left - this.margin.right;
         this.height = 500 - this.margin.top - this.margin.bottom;
 
-        this.svg = d3.select('.barchart')
+        d3.selectAll('.barchart').remove();
+
+        this.svg = d3.select('.charts').append('svg')
+        .attr('class', 'barchart')
         .attr("width", this.width + this.margin.left + this.margin.right)
         .attr('height', this.height + this.margin.top + this.margin.bottom)
         .append('g')
