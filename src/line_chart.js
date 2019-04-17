@@ -123,7 +123,6 @@ class LineChart {
             .style('opacity', '1')
             .style('font-weight', '900')
 
-        debugger;
         let totalLength = d3.selectAll('.line').node().getTotalLength() * 1.7;
 
         d3.selectAll('.line')

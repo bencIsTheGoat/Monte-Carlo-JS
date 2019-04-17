@@ -1,6 +1,7 @@
-// let Line = require('./line.js');
+
 let LineChart = require('./line_chart');
-let BarChart = require('./bar_chart.js')
+let BarChart = require('./bar_chart.js');
+let Stats = require('./stats.js');
 
 class Search {
 
@@ -57,20 +58,16 @@ class Search {
                 endPrices.push(sim[sim.length - 1].price)
                 i++;
             }
+            let filterData = this.prices.filter(datum => {
+                if (datum.close !== undefined) return datum
+            });
+            let recentPrice = filterData[filterData.length - 1].close;
             let avgEndPrice = this.avgEndPrice(endPrices)
             let avgLine = this.avgLine(this.prices, avgEndPrice)
-            new LineChart(simulations, avgLine, avgEndPrice);
+            new LineChart (simulations, avgLine, avgEndPrice);
             new BarChart (endPrices, avgEndPrice);
-
-            // this.input.addEventListener('input', (e) => {
-            //     e.preventDefault();
-            //     if (e.currentTarget.value !== '') {
-            //         d3.selectAll('svg').remove()
-            //     }
-            // });
-
-                
-            
+            let stats = new Stats (endPrices, avgEndPrice, ticker, recentPrice);
+            stats.render();
         })
     }
 

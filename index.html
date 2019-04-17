@@ -35,7 +35,6 @@
         }
         .charts svg{
             min-width: 700px;
-            min-height: 800px;
         }
         input {
             width: 280px;;
@@ -158,6 +157,16 @@
         .links #github {
             color: black;
         }
+        #stats {
+           padding: 20px;
+           padding-top: 0px;
+           display: block;
+        }
+        #stats-header {
+            padding: 20px;
+            margin: 0px;
+            font-weight: 900;
+        }
     </style>
     <div class='header-div'>
         <h1 id='header'>
@@ -197,8 +206,10 @@
         </div>
 
     </div>
-    <div class='charts'>
-       
+    <div class='charts'></div>
+    <div class='stats'>
+        <h2 id='stats-header'></h2>
+        <span id='stats'></span>
     </div>
 </body>
 </html>
