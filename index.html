@@ -11,11 +11,6 @@
     <link href="https://fonts.googleapis.com/css?family=Hind|Teko" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
         crossorigin="anonymous">
-<script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ"
-    crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-    crossorigin="anonymous">
-
     <link rel="icon" href="./favicon.png">
 
 </head>
@@ -34,7 +29,7 @@
             flex-direction: row;
         }
         .charts svg{
-            min-width: 700px;
+            width: 50%;
         }
         input {
             width: 280px;;
@@ -47,14 +42,13 @@
             font-size: 15px;
         }
         ul {
-            position: absolute;
             overflow-y: scroll;
             height: 200px;
             width: 500px;
             list-style: none;
             border-radius: 5px;
-            top: 44.5%;
-            left: 796px;
+            margin: 0px;
+            padding: 0px;
         }
         li:nth-child(even) {
             background: white;
@@ -69,15 +63,15 @@
             background: lightgray;
         }
         p {
-            min-width: 750px;
-            max-width: 750px;
-            padding: 20px;
+            width: 60%;
+            padding-left: 20px;
+            height: 20%;
         }
         h1{
             font-weight: 900;
             font-size: 40px;
             padding: 20px;
-            min-width: 500px;
+            min-width: 50%;
         }
         h2 {
            font-weight: 900;
@@ -104,9 +98,9 @@
             padding: 20px;
         }
         .input {
-            position: relative;
-            left: 20px;
-            width: 500px;
+           display: flex;
+           flex-direction: row;
+           align-items: center;
         }
         button {
             padding: 0 24px;
@@ -117,9 +111,8 @@
             font-weight: 600;
             height: 40px;
             font-size: 15px;
-            width: 100px;;
-            margin-bottom: 30px;
-            margin-top: 20px;
+            width: 100px;
+            margin-left: 10px;
         }
         button:hover {
             cursor: pointer;
@@ -128,7 +121,7 @@
         .info {
             display: flex;
             flex-direction: row;
-            align-items: flex-start;;
+            align-items: flex-start;
         }
         .header-div {
             display: flex;
@@ -168,49 +161,61 @@
             margin: 0px;
             font-weight: 900;
         }
+        .page-div {
+            display: flex;
+            flex-direction: column;
+        }
+        .content-div {
+            display: flex;
+            flex-direction: column;
+        }
     </style>
-    <div class='header-div'>
-        <h1 id='header'>
-           Future Stock Price Simulator
-        </h1>
-        <span class='links'>
-            Checkout my
-            <div>
-                <a href="https://www.linkedin.com/in/ben-cutler-783447b5/" id='linkedin'>
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="https://github.com/bcutler94" id='github'>
-                    <i class="fab fa-github"></i>
-                </a>
-            </div>
-        </span>
-    </div>
-    <h2>
-        <span>
-            A product of
-        </span>
-            <i class="fas fa-feather-alt"></i>
-            <a href="https://robenhood.herokuapp.com/#/">robenhood</a>
-    </h2>
-    <div class='info'>
-        <p>
-            Please search and select a publicly traded company to run an automated 
-            Monte Carlo Simulation using Geometric Brownian Motion that projects
-            real-time future stock price distribution over the next year.
-        </p>
-        <div class='search'>
-            <div class='input'>
-                <input type="text" placeholder="Search Company" class='search-input'>
-                <button class='reset-button'>Reset</button>
-            </div>
-             <ul class='search-ul'></ul>
+    <div class='page-div'>
+        <div class='header-div'>
+            <h1 id='header'>
+               Future Stock Price Simulator
+            </h1>
+            <span class='links'>
+                Checkout my
+                <div>
+                    <a href="https://www.linkedin.com/in/ben-cutler-783447b5/" id='linkedin'>
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://github.com/bcutler94" id='github'>
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </span>
         </div>
-
-    </div>
-    <div class='charts'></div>
-    <div class='stats'>
-        <h2 id='stats-header'></h2>
-        <span id='stats'></span>
+        <div class='content-div'>
+            <h2>
+                <span>
+                    A product of
+                </span>
+                <i class="fas fa-feather-alt"></i>
+                <a href="https://robenhood.herokuapp.com/#/">robenhood</a>
+            </h2>
+            <div class='info'>
+                <p>
+                    Please search and select a publicly traded company to run an automated 
+                    Monte Carlo Simulation using Geometric Brownian Motion that projects
+                    real-time future stock price distribution over the next year.
+                </p>
+                <div class='search'>
+                    <div class='input'>
+                        <input type="text" placeholder="Search Company" class='search-input'>
+                        <button class='reset-button'>Reset</button>
+                    </div>
+                    <ul class='search-ul'></ul>
+                </div>
+        
+            </div>
+        </div>
+        <div class='charts'></div>
+        <div class='stats'>
+            <h2 id='stats-header'></h2>
+            <span id='stats'></span>
+        </div>
     </div>
 </body>
 </html>
