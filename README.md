@@ -1,5 +1,7 @@
 # Future Stock Price Simulator
 
-[Live Link]()
+[Live Link](https://bcutler94.github.io/Monte-Carlo-JS/)
 
-### Advanced applied statistics application that predicts future stock price behavior with the D3 data visualization library
+## Overview
+
+Advanced applied statistics application that predicts future stock price behavior with the D3 data visualization library
