@@ -17,7 +17,23 @@ Advanced applied statistics application that predicts future stock price behavio
 
 * [IEX](https://iextrading.com/) for stock price information
 
-### Ultra-sleek UI design through CSS
+### Animating line chart that displays hundreds of Monte Carlo simulations
+
+![https://bcutler94.github.io/Monte-Carlo-JS/](https://github.com/bcutler94/monte-imgs/blob/master/Screen%20Shot%202019-04-21%20at%208.55.48%20AM.png)
+
+### Animating bar chart that display distribution of end price results
+
+![https://bcutler94.github.io/Monte-Carlo-JS/](https://github.com/bcutler94/monte-imgs/blob/master/Screen%20Shot%202019-04-21%20at%208.55.58%20AM.png)
+
+### Customized accurate and digestable real-time statistical data for each company
+
+![https://bcutler94.github.io/Monte-Carlo-JS/](https://github.com/bcutler94/monte-imgs/blob/master/Screen%20Shot%202019-04-21%20at%208.56.59%20AM.png)
+
+### Lighting fast and comprehensive search functionality
+
+![https://bcutler94.github.io/Monte-Carlo-JS/](https://github.com/bcutler94/monte-imgs/blob/master/Screen%20Shot%202019-04-21%20at%208.57.24%20AM.png)
+
+
 
 
 
