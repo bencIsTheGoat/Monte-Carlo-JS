@@ -10,6 +10,7 @@ class Search {
         this.input = input;
         this.ul = ul;
         this.button = button;
+        let body = $('html,body');
         this.input.addEventListener('input', (e) => {
             e.preventDefault();
             this.displayMatches(e.currentTarget.value);
@@ -18,11 +19,13 @@ class Search {
             if (e.keyCode === 13 && this.ul.children.length === 1) {
                 e.preventDefault();
                 this.getStockData(this.ul.firstElementChild.dataset.ticker.toLowerCase());
+                body.animate({ scrollTop: 500 }, 3000, 'swing')
             }
         })
         this.ul.addEventListener('click', (e) => {
             e.preventDefault();
             this.fetchStockData(e);
+            body.animate({scrollTop: 500 }, 3000, 'swing')
         });
         this.button.addEventListener('click', (e) => {
             e.preventDefault();
