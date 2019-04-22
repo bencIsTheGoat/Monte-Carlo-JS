@@ -138,6 +138,7 @@ class LineChart {
         d3.selectAll('.projected')
         .transition()
         .duration(7000)
+        .attr('font-weight', '900')
         .attr('opacity', '1')
     }
 

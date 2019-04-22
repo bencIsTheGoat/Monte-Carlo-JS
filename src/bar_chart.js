@@ -104,6 +104,7 @@ class BarChart {
         .delay((d, i) => i * 8000 + 6000)
         .attr('opacity', '1')
         .attr('fill', 'orange')
+        .attr('font-weight', '900')
         .attr('x', this.x(average)-70)
         .attr('y', -5)
         .text(`Projected Price ${currency.format(average)}`)

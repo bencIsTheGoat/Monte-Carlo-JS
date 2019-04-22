@@ -1,13 +1,13 @@
-
 let LineChart = require('./line_chart');
 let BarChart = require('./bar_chart.js');
 let Stats = require('./stats.js');
 
 class Search {
 
-    constructor({ input, ul, button }) {
-        this.fetchCompanies();
+    constructor({ input, ul, button, companies }) {
+        // this.fetchCompanies();
         this.input = input;
+        this.companies = companies;
         this.ul = ul;
         this.button = button;
         let body = $('html,body');
@@ -19,13 +19,13 @@ class Search {
             if (e.keyCode === 13 && this.ul.children.length === 1) {
                 e.preventDefault();
                 this.getStockData(this.ul.firstElementChild.dataset.ticker.toLowerCase());
-                body.animate({ scrollTop: 500 }, 3000, 'swing')
+                body.animate({ scrollTop: 1000 }, 4000, 'linear')
             }
         })
         this.ul.addEventListener('click', (e) => {
             e.preventDefault();
             this.fetchStockData(e);
-            body.animate({scrollTop: 500 }, 3000, 'swing')
+            body.animate({scrollTop: 1000 }, 4000, 'linear')
         });
         this.button.addEventListener('click', (e) => {
             e.preventDefault();
@@ -34,15 +34,15 @@ class Search {
 
     }
 
-    fetchCompanies () {
-        $.ajax({
-            method: 'GET',
-            url: 'https://api.iextrading.com/1.0/ref-data/symbols'
-        }).then(data => {
-            this.companies = data;
+    // fetchCompanies () {
+    //     $.ajax({
+    //         method: 'GET',
+    //         url: 'https://api.iextrading.com/1.0/ref-data/symbols'
+    //     }).then(data => {
+    //         this.companies = data;
             
-        })
-    }
+    //     })
+    // }
 
     getStockData (ticker) {
         $.ajax({
