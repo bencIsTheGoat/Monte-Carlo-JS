@@ -29,7 +29,7 @@ Advanced applied statistics application that predicts future stock price behavio
 
 ![https://bcutler94.github.io/Monte-Carlo-JS/](https://github.com/bcutler94/monte-imgs/blob/master/Screen%20Shot%202019-04-21%20at%208.56.59%20AM.png)
 
-### Lighting fast and comprehensive search functionality
+### Lightning fast and comprehensive search functionality
 
 ![https://bcutler94.github.io/Monte-Carlo-JS/](https://github.com/bcutler94/monte-imgs/blob/master/Screen%20Shot%202019-04-21%20at%208.57.24%20AM.png)
 
