@@ -19,13 +19,13 @@ class Search {
             if (e.keyCode === 13 && this.ul.children.length === 1) {
                 e.preventDefault();
                 this.getStockData(this.ul.firstElementChild.dataset.ticker.toLowerCase());
-                body.animate({ scrollTop: 1000 }, 4000, 'linear')
+                body.animate({ scrollTop: 500 }, 7000, 'linear')
             }
         })
         this.ul.addEventListener('click', (e) => {
             e.preventDefault();
             this.fetchStockData(e);
-            body.animate({scrollTop: 1000 }, 4000, 'linear')
+            body.animate({scrollTop: 500 }, 7000, 'linear')
         });
         this.button.addEventListener('click', (e) => {
             e.preventDefault();
