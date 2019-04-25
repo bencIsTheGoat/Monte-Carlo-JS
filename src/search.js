@@ -34,16 +34,6 @@ class Search {
 
     }
 
-    // fetchCompanies () {
-    //     $.ajax({
-    //         method: 'GET',
-    //         url: 'https://api.iextrading.com/1.0/ref-data/symbols'
-    //     }).then(data => {
-    //         this.companies = data;
-            
-    //     })
-    // }
-
     getStockData (ticker) {
         $.ajax({
             method: 'GET',
