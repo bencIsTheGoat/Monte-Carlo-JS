@@ -3,8 +3,8 @@ class BarChart {
     constructor(data, average) {
         this.data = data;
         this.margin = { top: 50, right: 50, bottom: 50, left: 50 };
-        this.width = 700 - this.margin.left - this.margin.right;
-        this.height = 500 - this.margin.top - this.margin.bottom;
+        this.width = 825 - this.margin.left - this.margin.right;
+        this.height = 600 - this.margin.top - this.margin.bottom;
 
         d3.selectAll('.barchart').remove();
 
