@@ -123,7 +123,7 @@ class LineChart {
             .style('opacity', '1')
             .style('font-weight', '900')
 
-        let totalLength = d3.selectAll('.line').node().getTotalLength() * 1.7;
+        let totalLength = d3.selectAll('.line').node().getTotalLength() * 2;
 
         d3.selectAll('.line')
             .attr('stroke-dasharray', totalLength + " " + totalLength)
