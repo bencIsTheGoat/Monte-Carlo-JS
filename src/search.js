@@ -166,7 +166,7 @@ class Search {
         } 
         let stdDevs = Math.sqrt(-2.0 * Math.log(randX)) * Math.cos(2.0 * Math.PI * randY);
 
-        stdDevs = stdDevs   / 10.0 + 0.5;
+        stdDevs = stdDevs / 10.0 + 0.5;
         if (stdDevs > 1 || stdDevs  < 0) stdDevs = this.calculateNoise(min, max);
         stdDevs *= max - min;
         stdDevs += min;
