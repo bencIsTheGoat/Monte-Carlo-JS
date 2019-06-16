@@ -137,22 +137,26 @@ class Search {
 
     calculateAvg (data) {
         let percent = 0;
+        let sumFactor = 0;
         for (let i = 0; i < data.length - 1; i++) {
-            let change = (data[i + 1].close - data[i].close) / data[i].close ;
+            sumFactor += i + 1;
+            let change = ((data[i + 1].close - data[i].close) * (i + 1)) / data[i].close ;
             percent += change;
         }
-        return percent / (data.length - 1)
+        return percent / (sumFactor)
     }
 
     calculateStdDev (data, average) {
         let sum = 0;
+        let sumFactor = 0;
         for (let i = 0; i < data.length - 1; i++) {
-            let change = (data[i + 1].close - data[i].close) / data[i].close;
+            sumFactor += i + 1;
+            let change = ((data[i + 1].close - data[i].close) * (i + 1)) / data[i].close;
             let stdDev = Math.pow(change - average, 2);
 
             sum += stdDev;
         }
-        return Math.pow((sum / (data.length - 1)), 0.5);
+        return Math.pow((sum / (sumFactor)), 0.5);
     }
 
     calculateNoise (min, max,) {
