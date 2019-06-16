@@ -37,7 +37,7 @@ class Search {
     getStockData (ticker) {
         $.ajax({
             method: 'GET',
-            url: `https://api.iextrading.com/1.0/stock/${ticker}/chart/1y`
+            url: `https://cloud.iexapis.com/stable/stock/${ticker}/chart/1y?token=pk_a4d537a2e4054c8ca85a79513e34111b`
         }).then(data => {
             this.ul.innerHTML = ''
             this.input.value = ''
@@ -137,26 +137,27 @@ class Search {
 
     calculateAvg (data) {
         let percent = 0;
-        let sumFactor = 0;
+        let sum = 0;
         for (let i = 0; i < data.length - 1; i++) {
-            sumFactor += i + 1;
+            sum += i + 1;
             let change = ((data[i + 1].close - data[i].close) * (i + 1)) / data[i].close ;
             percent += change;
         }
-        return percent / (sumFactor)
+        debugger;
+        return percent / (sum);
     }
 
     calculateStdDev (data, average) {
         let sum = 0;
-        let sumFactor = 0;
+        let prod = 0;
         for (let i = 0; i < data.length - 1; i++) {
-            sumFactor += i + 1;
-            let change = ((data[i + 1].close - data[i].close) * (i + 1)) / data[i].close;
-            let stdDev = Math.pow(change - average, 2);
+            prod += i + 1;
+            let change = ((data[i + 1].close - data[i].close)) / data[i].close;
+            let stdDev = Math.pow(change - average, 2) * (i + 1);
 
             sum += stdDev;
         }
-        return Math.pow((sum / (sumFactor)), 0.5);
+        return Math.pow((sum / (prod)), 0.5);
     }
 
     calculateNoise (min, max,) {
