@@ -104,7 +104,7 @@ eval("class BarChart {\n\n    constructor(data, average) {\n        this.data = 
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("let Search = __webpack_require__(/*! ./search */ \"./src/search.js\");\n\ndocument.addEventListener(\"DOMContentLoaded\", (e) => {\n    let input = document.querySelector('.search-input');\n    let ul = document.querySelector('.search-ul');\n    let button = document.querySelector('.reset-button');\n    $(document).ready(() => $.ajax({\n        method: 'GET',\n        url: 'https://api.iextrading.com/1.0/ref-data/symbols'\n    }).then(data => {\n        let companies = data\n        new Search ({input, ul, button, companies });\n    }))\n});\n\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("let Search = __webpack_require__(/*! ./search */ \"./src/search.js\");\n\ndocument.addEventListener(\"DOMContentLoaded\", (e) => {\n    let input = document.querySelector('.search-input');\n    let ul = document.querySelector('.search-ul');\n    let button = document.querySelector('.reset-button');\n    $(document).ready(() => $.ajax({\n        method: 'GET',\n        url: 'https://cloud.iexapis.com/stable/ref-data/symbols?token=pk_a4d537a2e4054c8ca85a79513e34111b'\n    }).then(data => {\n        let companies = data\n        new Search ({input, ul, button, companies });\n    }))\n});\n\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ }),
 

@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
     let button = document.querySelector('.reset-button');
     $(document).ready(() => $.ajax({
         method: 'GET',
-        url: 'https://api.iextrading.com/1.0/ref-data/symbols'
+        url: 'https://cloud.iexapis.com/stable/ref-data/symbols?token=pk_a4d537a2e4054c8ca85a79513e34111b'
     }).then(data => {
         let companies = data
         new Search ({input, ul, button, companies });
