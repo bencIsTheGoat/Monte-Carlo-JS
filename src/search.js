@@ -143,7 +143,6 @@ class Search {
             let change = ((data[i + 1].close - data[i].close) * (i + 1)) / data[i].close ;
             percent += change;
         }
-        debugger;
         return percent / (sum);
     }
 
