@@ -37,7 +37,7 @@ class Search {
     getStockData (ticker) {
         $.ajax({
             method: 'GET',
-            url: `https://cloud.iexapis.com/stable/stock/${ticker}/chart/1y?token=pk_a4d537a2e4054c8ca85a79513e34111b`
+            url: `https://cloud.iexapis.com/stable/stock/${ticker}/chart/1y?token=pk_cf7af45bc1714be8ba5a7869e7acc84d`
         }).then(data => {
             this.ul.innerHTML = ''
             this.input.value = ''
@@ -88,8 +88,8 @@ class Search {
     getMatches (input) {
         return this.companies.filter(company => {
             let len = input.length;
-            if (company.name.slice(0, len).toLowerCase() === input.toLowerCase()) {
-                return company.name
+            if (company.symbol.slice(0, len).toLowerCase() === input.toLowerCase()) {
+                return company.symbol
             }
         })
     }
@@ -98,7 +98,7 @@ class Search {
         let matches = this.getMatches(input);
         let lis = matches.map(company => {
             return `<li data-ticker=${company.symbol}>
-                <span class='company' data-ticker=${company.symbol}>${company.name}</span>
+                <span class='company' data-ticker=${company.symbol}>${company.symbol}</span>
             </li>`;
         }).join('');
 
